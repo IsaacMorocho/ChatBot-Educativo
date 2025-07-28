@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Interactivo</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="split-container">
+      <!-- Left side - Landing Page -->
+      <div class="landing-page">
+        <div class="landing-content">
+          <h1><i class="fas fa-first-aid"></i> AuxilioBot</h1>
+          <h2>Tu Asistente de Primeros Auxilios</h2>
+
+          <div class="benefits">
+            <div class="benefit-card">
+              <i class="fas fa-clock"></i>
+              <h3>Respuesta Inmediata</h3>
+              <p>Obtén información vital en segundos durante emergencias.</p>
+            </div>
+
+            <div class="benefit-card">
+              <i class="fas fa-book-medical"></i>
+              <h3>Información Confiable</h3>
+              <p>Basado en protocolos de primeros auxilios.</p>
+            </div>
+
+            <div class="benefit-card">
+              <i class="fas fa-user-shield"></i>
+              <h3>Guía Paso a Paso</h3>
+              <p>Instrucciones para actuar en situaciones críticas.</p>
+            </div>
+
+            <div class="benefit-card">
+              <i class="fas fa-heartbeat"></i>
+              <h3>Salva Vidas</h3>
+              <p>Herramienta esencial para el público general.</p>
+            </div>
+          </div>
+
+          <div class="cta">
+            <p>¡Prueba nuestro chatbot ahora mismo!</p>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right side - Chatbot -->
+      <div class="chat-container">
+        <header>
+          <h1><i class="fas fa-robot"></i> AuxilioBot</h1>
+          <p>Pregúntame acerca de los primeros auxilios</p>
+        </header>
+
+        <div class="chat-box" id="chatBox">
+          <div class="bot-message">
+            <p>
+              ¡Hola! Soy un chatbot inteligente. ¿En qué puedo ayudarte hoy?
+            </p>
+          </div>
+
+          {% if examples %}
+          <div class="bot-message" id="examplesContainer">
+            <p>Puedes probar con preguntas como:</p>
+            <ul class="examples" id="examplesList">
+              {% for example in examples %}
+              <li onclick="useExample('{{ example }}')">{{ example }}</li>
+              {% endfor %}
+            </ul>
+            <button onclick="refreshExamples()" style="margin-top: 8px">
+              🔄 Actualizar preguntas
+            </button>
+          </div>
+          {% endif %}
+        </div>
+
+        <div class="input-area">
+          <input
+            type="text"
+            id="userInput"
+            placeholder="Escribe tu mensaje aquí..."
+            autofocus
+          />
+          <button id="sendButton">
+            <i class="fas fa-paper-plane"></i> Enviar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Función para enviar mensaje
+      function sendMessage() {
+        const userInput = document.getElementById("userInput");
+        const message = userInput.value.trim();
+
+        if (message) {
+          displayMessage(message, "user");
+          userInput.value = "";
+
+          const typingIndicator = displayMessage(
+            '<i class="fas fa-ellipsis-h"></i>',
+            "bot"
+          );
+
+          fetch("/predict", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ message: message }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              typingIndicator.remove();
+
+              if (data.error) {
+                displayMessage(
+                  `<i class="fas fa-exclamation-circle"></i> ${data.error}`,
+                  "bot"
+                );
+              } else {
+                displayMessage(data.response, "bot");
+              }
+            })
+            .catch((error) => {
+              typingIndicator.remove();
+              displayMessage(
+                `<i class="fas fa-exclamation-triangle"></i> Error de conexión`,
+                "bot"
+              );
+            });
+        }
+      }
+
+      function refreshExamples() {
+        fetch("/random_examples")
+          .then((response) => response.json())
+          .then((data) => {
+            const examplesList = document.getElementById("examplesList");
+            examplesList.innerHTML = "";
+
+            data.examples.forEach((example) => {
+              const li = document.createElement("li");
+              li.textContent = example;
+              li.onclick = () => useExample(example);
+              examplesList.appendChild(li);
+            });
+          })
+          .catch((error) => {
+            console.error("Error al actualizar ejemplos:", error);
+          });
+      }
+
+      // Función para mostrar mensajes
+      function displayMessage(content, sender) {
+        const chatBox = document.getElementById("chatBox");
+        const messageDiv = document.createElement("div");
+        messageDiv.className = `${sender}-message`;
+        messageDiv.innerHTML = `<p>${content}</p>`;
+
+        chatBox.appendChild(messageDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        return messageDiv;
+      }
+
+      // Función para usar ejemplos
+      function useExample(example) {
+        document.getElementById("userInput").value = example;
+        document.getElementById("userInput").focus();
+      }
+
+      // Event listeners
+      document
+        .getElementById("sendButton")
+        .addEventListener("click", sendMessage);
+      document
+        .getElementById("userInput")
+        .addEventListener("keypress", function (e) {
+          if (e.key === "Enter") {
+            sendMessage();
+          }
+        });
+    </script>
+  </body>
+
+</html>
