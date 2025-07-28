@@ -67,6 +67,17 @@ Y para ejecutar localmente:
 
 python app.py
 
+
+
+Link del modelo desplegado:
+
+https://chatbot-educativo-bd90.onrender.com/
+
+#  Informe
+
+[Proyecto Final Fundamentos de Inteligencia Artificial_Mejia, Morocho .pdf](https://github.com/user-attachments/files/21477487/Proyecto.Final.Fundamentos.de.Inteligencia.Artificial_Mejia.Morocho.pdf)
+
+
 ## Autores
 
 - Joshua Morocho
