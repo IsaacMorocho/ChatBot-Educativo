@@ -15,7 +15,7 @@ Este proyecto consiste en el desarrollo de un **chatbot educativo con inteligenc
 - Modelo exportado con `joblib` para facilitar el despliegue.
 - Preparado para desplegarse en plataformas como Render o Heroku.
 
-## 💬 Temáticas abordadas
+## Temáticas abordadas
 
 El chatbot responde preguntas sobre:
 
