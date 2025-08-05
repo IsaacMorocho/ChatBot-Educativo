@@ -1,0 +1,17 @@
+{
+  "name": "@bp-templates/empty-bot",
+  "scripts": {
+    "check:type": "tsc --noEmit"
+  },
+  "private": true,
+  "dependencies": {
+    "@botpress/client": "1.21.0",
+    "@botpress/sdk": "4.15.2",
+    "csv-parser": "^3.2.0",
+    "papaparse": "^5.5.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.16.4",
+    "typescript": "^5.6.3"
+  }
+}
