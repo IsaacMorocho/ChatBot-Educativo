@@ -1,85 +1,97 @@
-# Proyecto Final - Fundamentos de inteligencia Artificial
+# Proyecto Final - Fundamentos de Inteligencia Artificial
 
-Para este proyecto se escogio el tema de un ChatBot educativo enfocado al tema de los primeros auxilios.
+Este proyecto implementa un **ChatBot educativo** con capacidades de inteligencia artificial para brindar **asistencia en primeros auxilios**, utilizando la plataforma **Botpress**, junto con un modelo predictivo de soporte desarrollado en **Python**.
 
-## ChatBot Educativo - Primeros Auxilios
+## 🤖 ChatBot Educativo - Primeros Auxilios
 
-Este proyecto consiste en el desarrollo de un **chatbot educativo con inteligencia artificial** especializado en brindar asistencia básica sobre **primeros auxilios**. Está diseñado para ofrecer información clara, rápida y accesible ante situaciones de emergencia comunes, como quemaduras, fracturas, entre otros.
+El chatbot está diseñado para ofrecer información inmediata, clara y precisa sobre situaciones comunes de emergencia, como quemaduras, fracturas, desmayos, etc. Combina flujos conversacionales de **Botpress** con un modelo de **aprendizaje automático** personalizado.
 
-## Características
+## ⚙️ Características
 
-- Entrenamiento con datos personalizados sobre primeros auxilios.
-- Identificación de intenciones usando modelos de Machine Learning.
-- Respuestas automáticas y comprensibles para situaciones críticas.
-- Interfaz web simple desarrollada con Flask.
-- Modelo exportado con `joblib` para facilitar el despliegue.
-- Preparado para desplegarse en plataformas como Render o Heroku.
+* Integración de flujos personalizados con **Botpress**.
+* Incorporación de un **modelo de predicción** en Python para respuestas inteligentes.
+* Dataset en formato `.xlsx` con temas de primeros auxilios.
+* Estructura modular de carpetas para fácil mantenimiento.
+* Interfaz amigable con Streamlit (desde `main.py`).
+* Posibilidad de ampliación con más flujos, integraciones y plugins.
 
-## Temáticas abordadas
+## 🧠 Temáticas abordadas
 
-El chatbot responde preguntas sobre:
+* 🔥 Quemaduras
+* 🦴 Fracturas
+* 💊 Heridas comunes
+* 🤕 Golpes y traumatismos
+* 🚑 Reanimación cardiopulmonar (RCP)
+* 😵‍💫 Desmayos
+* 🐍 Mordeduras
+* Y más...
 
-- 🔥 Quemaduras
-- 🦴 Fracturas
-- 🚑 Reanimación cardiopulmonar (RCP)
-- 😵‍💫 Desmayos
-- Y otras situaciones de primeros auxilios
+## 📁 Estructura del proyecto
 
-## Estructura del proyecto
-ChatBot-Educativo/
+```
+my-bot/
+│
+├── .botpress/
+│   ├── dist/
+│   │   └── index.cjs                # Código generado por Botpress
+│   └── implementation/
+│       ├── plugins/                 # Plugins del bot
+│       └── typings/                 # Tipos para flujos, estados, acciones, etc.
+│           ├── actions/
+│           ├── events/
+│           ├── integrations/
+│           ├── states/
+│           ├── tables/
+│           └── workflows/
+│               └── index.ts
+│
+├── src/
+│   ├── index.ts                    # Código principal del bot
+│   ├── bot.definition.ts          # Definición del bot
+│
+├── main.py                        # Script con modelo de predicción en Python + Streamlit
+├── lesiones_comunes_dataset.xlsx  # Dataset personalizado
+├── first_aid_instructions_translate.xlsx # Instrucciones de primeros auxilios traducidas
+│
+├── package.json                   # Configuración del proyecto Node.js
+├── tsconfig.json                  # Configuración de TypeScript
+├── package-lock.json
+├── project.cache.json
+└── README.md                      # Este archivo
+```
 
-├── app.py # Servidor principal con Flask
+## 🧪 Requisitos
 
-├── model/
+### Backend con Python
 
-│ ├── modelo_entrenado.pkl
+* Python 3.10 o superior
+* Streamlit
+* pandas
+* scikit-learn
+* openpyxl
 
-│ └── vectorizador.pkl
+### Chatbot
 
-├── data/
+* Node.js
+* Botpress
+* TypeScript
 
-│ └── intents.json # Dataset de intenciones y respuestas
+## 🚀 Despliegue
 
-├── templates/
+Este bot puede integrarse y desplegarse en plataformas como:
 
-│ └── index.html # Interfaz del usuario
+* **Render**
+* **Heroku**
+* **Vercel** (para frontend)
+* **Railway** (para backend)
 
-├── static/
+Además, el bot puede conectarse a otros sistemas como asistentes virtuales o sistemas de emergencia educativa.
 
-│ └── styles.css
+## 📎 Informe del Proyecto
 
-├── Procfile
+[Proyecto Final Fundamentos de Inteligencia Artificial_Mejia, Morocho.pdf](https://github.com/user-attachments/files/21588324/Proyecto.Final.Fundamentos.de.Inteligencia.Artificial_Mejia.Morocho.pdf)
 
-├── requirements.txt
+## 👥 Autores
 
-└── README.md
-
-## Requisitos 
- Los requisitos que se necesitan para este proyecto son:
-
-- Python 3.10 o superior
-- Flask
-- scikit-learn
-- joblib
-
-
-Y para ejecutar localmente:
-
-python app.py
-
-
-
-Link del modelo desplegado:
-
-https://chatbot-educativo-bd90.onrender.com/
-
-#  Informe
-
-[Proyecto Final Fundamentos de Inteligencia Artificial_Mejia, Morocho .pdf](https://github.com/user-attachments/files/21477487/Proyecto.Final.Fundamentos.de.Inteligencia.Artificial_Mejia.Morocho.pdf)
-
-
-## Autores
-
-- Joshua Morocho
-
-- Josué Mejía
+* Joshua Morocho
+* Josué Mejía
